@@ -1,0 +1,26 @@
+---
+import Layout from "../../layouts/BlogPostsLayout.astro";
+
+let res = await fetch("https://www.tripiedo.com/wp-json/wp/v2/posts");
+let posts = await res.json();
+---
+<Layout title="Posts!">
+  <section>
+    <h1>List of Tripiedo Posts</h1>
+    {
+      posts.map((post: {
+        excerpt: any; 
+        slug: any; 
+        title: { rendered: unknown; }; 
+        content: { rendered: any; }; 
+      }) => (
+        <article>
+          <h2>
+            <a href={`/posts/${post.slug}/`} set:html={post.title.rendered} />
+          </h2>
+          <Fragment set:html={post.excerpt.rendered} />
+        </article>
+      ))
+    }
+  </section>
+</Layout>

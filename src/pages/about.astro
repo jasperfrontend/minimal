@@ -1,0 +1,44 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+
+const identity = {
+  firstName: "Jasper",
+  country: "Rotterdam",
+  occupation: "Matt Mullenweg Slave",
+  hobbies: ["smoking weed", "travelling", "smoking weed while travelling"],
+};
+
+const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
+
+const happy: boolean = true;
+const finished: boolean = false;
+const learned: number = 3;
+const goal: number = 3;
+---
+
+<PageLayout title="About this site">
+  <h2>... and my new Astro site!</h2>
+  <p>Hello, mah name {identity.firstName} and I am from {identity.country}. My daily job is {identity.occupation}.</p>
+  {happy && <p>I'm so happy to be able to learn Astro!</p>}
+  {finished && <p>I'm finished learning Astro</p>}
+  {!finished && <p>I'm actually not finished learning Astro yet&hellip;</p>}
+  {learned < goal && (
+    <p>
+      My goal of {goal} goals has not been reached. I've learned {learned} thing
+      {learned === 1 ? '' : 's'} so far.
+    </p>
+  )}
+
+
+  <h3>Hobbies</h3>
+  <p>My hobbies are:</p>
+  <ul>
+    {identity.hobbies.map((hobbies) => <li>{hobbies}</li>)}
+  </ul>
+  <hr />
+  <h3>Skills</h3>
+  <p>My skills are:</p>
+  <ul>
+    {skills.map((skills) => <li>{skills}</li>)}
+  </ul>
+</PageLayout>

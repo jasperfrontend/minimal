@@ -1,0 +1,21 @@
+---
+import HeadStuff from "../components/HeadStuff.astro";
+import MainNavigation from "../components/MainNavigation.astro";
+const { title } = Astro.props;
+---
+<html>
+  <head>
+    <!-- Add other Head elements here, like styles and meta tags. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title>Blogpost</title>
+    <HeadStuff />
+  </head>
+  <body>
+    <h1>{title}</h1>
+    <MainNavigation />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

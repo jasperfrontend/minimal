@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/PageLayout.astro';
+
+const { slug } = Astro.params;
+
+let res = await fetch(`https://www.tripiedo.com/wp-json/wp/v2/posts?slug=${slug}`);
+let [post] = await res.json();
+
+// The getStaticPaths() is required for static Astro sites.
+// If using SSR, you will not need this function.
+export async function getStaticPaths() {
+  let data = await fetch("https://www.tripiedo.com/wp-json/wp/v2/posts");
+  let posts = await data.json();
+
+  return posts.map((post: { slug: any; }) => ({
+    params: { slug: post.slug },
+    props: { post: post },
+  }));
+}
+
+---
+<style>
+  .post-article {
+    max-width: 888px;
+    margin: 0 auto;
+  }
+  @media (max-width: 1024px) {
+    .post-article {
+      max-width: 90vw;
+    }
+  }
+</style>
+<Layout title={post.title.rendered}>
+  <article class="post-article">
+    <Fragment set:html={post.content.rendered} />
+  </article>
+</Layout>
